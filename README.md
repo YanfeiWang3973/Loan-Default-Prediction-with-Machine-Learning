@@ -31,4 +31,3 @@ The dataset contains borrower information (loan amount, interest rate, annual in
 ---
 
 
-## 📂 Repository Structure (suggested)
