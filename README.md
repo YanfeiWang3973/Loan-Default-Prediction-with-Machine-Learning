@@ -8,7 +8,7 @@ The dataset contains borrower information (loan amount, interest rate, annual in
 
 ---
 
-## 🔑 Key Steps
+## Key Steps
 
 ### Data Preprocessing
 - Scaled numerical features  
@@ -30,10 +30,5 @@ The dataset contains borrower information (loan amount, interest rate, annual in
 
 ---
 
-## 🚀 Next Steps
-- Deploy as a simple web API to predict default risk for new applicants  
-- Experiment with gradient boosting models (XGBoost, LightGBM) for further improvements  
-
----
 
 ## 📂 Repository Structure (suggested)
