@@ -8,57 +8,80 @@ The dataset contains borrower information (loan amount, interest rate, annual in
 
 ---
 
-Data Preprocessing
+# 🧠 Loan Default Prediction
 
-Limited dataset to 200,000 rows for optimal performance in Colab’s memory constraints.
+A machine learning project predicting **loan default risk** using financial and demographic data.  
+Built and tested on **Google Colab** under limited memory constraints (downsized dataset: 200,000 rows).  
+This project demonstrates the full ML pipeline — from data merging and cleaning to model training and evaluation.
 
-Merged multiple CSVs with one-to-many relationships to form a unified dataset.
+---
 
-Cleaned all missing and null values.
+## 📁 Project Overview
 
-Split features into categorical and numerical groups for targeted processing.
+This project explores the impact of borrower and loan attributes on default probability.  
+Multiple CSV datasets were merged (via **one-to-many relationships**) and preprocessed for model development.  
 
-Applied one-hot encoding to categorical columns and scaling to numerical ones.
+---
 
-Binned continuous variables for better interpretability in modeling.
+## ⚙️ Data Preprocessing
 
-Data Balancing
+1. **Data Cleaning**
+   - Removed missing and null values.  
+   - Standardized inconsistent column names and formats.  
 
-Addressed class imbalance through upsampling of minority class within the training data.
+2. **Feature Engineering**
+   - Split features into **categorical** and **numerical** types.  
+   - Applied **one-hot encoding** to categorical variables.  
+   - Scaled numerical features for consistency.  
+   - Created **binned features** for interpretability (e.g., income bands, credit score ranges).  
 
-Ensured balanced representation of target labels (0 and 1) before model training.
+3. **Dataset Balancing**
+   - Addressed target imbalance by **upsampling** minority class (default = 1).  
+   - Ensured balanced representation between defaulters and non-defaulters.  
 
-Model Training & Evaluation
+4. **Train-Test Split**
+   - 80% Training | 20% Testing  
 
-Trained three supervised learning models:
+---
 
-Logistic Regression – Baseline model.
+## 🤖 Model Training & Evaluation
 
-Random Forest Classifier – Captured non-linear relationships.
+| Model | Description | Notes |
+|:------|:-------------|:------|
+| **Logistic Regression** | Baseline linear model | Fast, interpretable |
+| **Random Forest** | Ensemble method capturing non-linear relationships | Moderate accuracy |
+| **LightGBM** | Gradient boosting model for large-scale data | Fast and efficient |
 
-LightGBM – Gradient boosting for faster training and feature weighting.
+### Evaluation Metrics
+- **Accuracy**
+- **ROC Curve**
+- **Confusion Matrix**
+- **Feature Importance**
 
-Evaluated models using ROC curves, accuracy, and confusion matrices.
+Average **test accuracy ≈ 0.621**, primarily limited by downsized data and reduced granularity.
 
-Observed test accuracy around 0.621, attributed to downsized dataset and reduced feature granularity.
+---
 
-Insights
+## 📊 Insights
 
-Key predictive factors aligned with financial risk features.
+- Key predictive features included **interest rate, grade, and term length**.  
+- Geographic/location features contributed little predictive value.  
+- **ROC curve analysis** revealed trade-offs between recall and false positive rates.  
+- Random Forest and LightGBM outperformed Logistic Regression slightly.  
 
-Non-linear models (RF, LightGBM) outperformed logistic regression slightly but remained limited by data reduction.
+---
 
-ROC analysis revealed trade-offs between recall and false positive rates across models.
+## 💾 Model Persistence
 
-Model Persistence
+Final model saved using **Joblib** for future use:
 
-Saved trained models using Joblib for future reuse (loan_default_model.pkl).
+```python
+import joblib
 
-Tools
+# Save model
+joblib.dump(rf_model, 'loan_default_model.pkl')
 
-Python (Pandas, Scikit-learn, LightGBM, Matplotlib, Seaborn)
+# Load model
+loaded_model = joblib.load('loan_default_model.pkl')
 
-Google Colab for environment and runtime
-
-Joblib for model serialization
 
