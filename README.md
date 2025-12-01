@@ -1,87 +1,73 @@
+BMO Credit Risk Modeling Case Study — PD Model Development
 
-# Loan Default Prediction with Machine Learning
+This project simulates a real credit-risk modeling workflow using the BMO ML CoE (Machine Learning Centre of Excellence) case study dataset. It recreates the typical steps used in developing Probability of Default (PD) models in banking: data cleaning, feature engineering, model development, validation, and performance comparison.
 
-This project explores **predicting loan defaults** using machine learning models.  
-The dataset contains borrower information (loan amount, interest rate, annual income, credit history, home ownership, state, etc.) with a binary target variable:  
-- `0 = fully paid`  
-- `1 = charged off`  
+🔍 Objective
 
----
+Predict customer default risk and evaluate the performance of several PD model candidates.
 
-# 🧠 Loan Default Prediction
+📊 1. Data Preparation & Cleaning
 
-A machine learning project predicting **loan default risk** using financial and demographic data.  
-Built and tested on **Google Colab** under limited memory constraints (downsized dataset: 200,000 rows).  
-This project demonstrates the full ML pipeline — from data merging and cleaning to model training and evaluation.
+Loaded the official BMO case-study dataset
 
----
+Inspected data quality using .info(), distribution checks, and missing-value analysis
 
-## 📁 Project Overview
+Cleaned abnormal values and inconsistent fields
 
-This project explores the impact of borrower and loan attributes on default probability.  
-Multiple CSV datasets were merged (via **one-to-many relationships**) and preprocessed for model development.  
+Normalized column names and removed duplicated entries
 
----
+🔧 2. Feature Engineering
 
-## ⚙️ Data Preprocessing
+Handled categorical variables (encoding/cleaning where needed)
 
-1. **Data Cleaning**
-   - Removed missing and null values.  
-   - Standardized inconsistent column names and formats.  
+Scaled numerical features using MinMaxScaler / StandardScaler
 
-2. **Feature Engineering**
-   - Split features into **categorical** and **numerical** types.  
-   - Applied **one-hot encoding** to categorical variables.  
-   - Scaled numerical features for consistency.  
-   - Created **binned features** for interpretability (e.g., income bands, credit score ranges).  
+Conducted correlation analysis to understand key risk drivers
 
-3. **Dataset Balancing**
-   - Addressed target imbalance by **upsampling** minority class (default = 1).  
-   - Ensured balanced representation between defaulters and non-defaulters.  
+🤖 3. Model Development
 
-4. **Train-Test Split**
-   - 80% Training | 20% Testing  
+Models Developed:
 
----
+Logistic Regression (baseline PD model)
 
-## 🤖 Model Training & Evaluation
+Random Forest
 
-| Model | Description | Notes |
-|:------|:-------------|:------|
-| **Logistic Regression** | Baseline linear model | Fast, interpretable |
-| **Random Forest** | Ensemble method capturing non-linear relationships | Moderate accuracy |
-| **LightGBM** | Gradient boosting model for large-scale data | Fast and efficient |
+Gradient Boosting Classifier
 
-### Evaluation Metrics
-- **Accuracy**
-- **ROC Curve**
-- **Confusion Matrix**
-- **Feature Importance**
+Workflows:
 
-Average **test accuracy ≈ 0.621**, primarily limited by downsized data and reduced granularity.
+Train/test split
 
----
+Model fitting
 
-## 📊 Insights
+Predicting probabilities (predict_proba)
 
-- Key predictive features included **interest rate, grade, and term length**.  
-- Geographic/location features contributed little predictive value.  
-- **ROC curve analysis** revealed trade-offs between recall and false positive rates.  
-- Random Forest and LightGBM outperformed Logistic Regression slightly.  
+Hyperparameter adjustments for stability
 
----
+📈 4. Model Evaluation
 
-## 💾 Model Persistence
+Metrics used:
 
-Final model saved using **Joblib** for future use:
+ROC-AUC
 
-```python
-import joblib
+Precision-Recall Curve
 
-# Save model
-joblib.dump(rf_model, 'loan_default_model.pkl')
+Confusion Matrix
 
-# Load model
-loaded_model = joblib.load('loan_default_model.pkl')
+Probability Calibration
+
+Model comparison charts
+
+This mirrors standard PD validation frameworks in banking.
+
+📝 5. Key Insights
+
+Logistic Regression provided a stable, interpretable baseline
+
+Ensemble models boosted predictive power but introduced complexity trade-offs
+
+Feature scaling significantly improved model stability
+
+Identified top predictive drivers consistent with real credit-risk factors
 
 
